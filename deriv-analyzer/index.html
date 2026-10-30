@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deriv Market Analyzer — Over 1 / Under 8</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="dot"></span>
+    <h1>Deriv Market Analyzer</h1>
+  </div>
+  <div class="tagline">Over 1 / Under 8 strategy tester &middot; historical + live</div>
+  <div id="conn" class="conn">
+    <span class="conn-dot" id="connDot"></span>
+    <span id="connText">Connecting&hellip;</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- Controls -->
+  <section class="card">
+    <h2>1. Controls</h2>
+    <div class="controls">
+      <div class="ctrl">
+        <label>Upload My Bot (Deriv XML)</label>
+        <input type="file" id="botFile" accept=".xml" />
+      </div>
+      <div class="ctrl">
+        <label>Stake per trade (USD)</label>
+        <input type="number" id="stake" value="1" min="0.35" step="0.01" />
+      </div>
+      <div class="ctrl">
+        <label>Historical ticks to test</label>
+        <input type="number" id="tickCount" value="3000" min="100" max="5000" step="100" />
+      </div>
+      <div class="ctrl buttons">
+        <button id="runBtn" class="primary">Run Historical Test</button>
+        <button id="liveBtn">Start Live Analysis</button>
+      </div>
+    </div>
+    <p class="note">Over 1 wins when the last digit is 2–9. Under 8 wins when the last digit is 0–7. This tool only analyses public market data — it never places trades and never asks for your password or API token.</p>
+  </section>
+
+  <!-- Bot analysis -->
+  <section class="card">
+    <h2>2. My Bot Analysis</h2>
+    <div id="botInfo" class="bot-info muted">Upload your Deriv Bot XML file to see its trading rules.</div>
+  </section>
+
+  <!-- Historical results -->
+  <section class="card">
+    <h2>3. Historical Results</h2>
+    <div id="status" class="muted">Click “Run Historical Test” to analyse the volatility markets.</div>
+    <div class="table-wrap">
+      <table id="resultTable">
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Trades</th>
+            <th>Over 1 Win%</th>
+            <th>Over 1 P/L</th>
+            <th>Under 8 Win%</th>
+            <th>Under 8 P/L</th>
+            <th>Best Contract</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+    <div id="summary" class="summary"></div>
+  </section>
+
+  <!-- Live -->
+  <section class="card">
+    <h2>4. Live Market Analysis</h2>
+    <div id="liveStatus" class="muted">Live analysis is off. Click “Start Live Analysis” to stream ticks.</div>
+    <div class="table-wrap">
+      <table id="liveTable">
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>Last Price</th>
+            <th>Last Digit</th>
+            <th>Ticks</th>
+            <th>Over 1 Win% (live)</th>
+            <th>Under 8 Win% (live)</th>
+          </tr>
+        </thead>
+        <tbody id="liveBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Runs fully in your browser. Data source: Deriv public WebSocket API.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
